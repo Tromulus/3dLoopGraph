@@ -1,0 +1,73 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "sidebar article ads"
+        "footer footer footer";
+    grid-template-rows: 80px 1fr 70px;
+    grid-template-columns: 100px 1fr 100px;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+}
+
+#pageHeader {
+    grid-area: header;
+    min-height: 80px;
+    padding: 15px;
+    display: inline-flex;
+}
+
+#pageHeader h1 {
+    margin-left: 20px;
+}
+
+#pageFooter {
+    grid-area: footer;
+    min-height: 70px;
+}
+
+#myDiv {
+    grid-area: article;
+}
+
+#siteAds {
+    grid-area: ads;
+}
+
+#sideBar {
+    grid-area: sidebar;
+}
+
+/* Stack the layout on small devices/viewports. */
+@media all and (max-width: 575px) {
+    body {
+        grid-template-areas:
+            "header"
+            "article"
+            "ads"
+            "nav"
+            "footer";
+        grid-template-rows: 80px 1fr 70px 1fr 70px;
+        grid-template-columns: 1fr;
+    }
+}
+
+#options {
+    padding: 15px;
+}
+
+.row {
+    margin: 15px;
+}
+
+.range-slider {
+    width: 100%;
+}
+
+#renderbtn {
+    display: flex;
+    justify-items: end;
+}

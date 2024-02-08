@@ -1,1 +1,1 @@
-![<img src="Screenshot.jpg">](https://dloopgrapher.web.app/)
+[<img src="Screenshot.jpg">](https://dloopgrapher.web.app/)

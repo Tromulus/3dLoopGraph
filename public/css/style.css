@@ -56,7 +56,8 @@ body {
 }
 
 #options {
-    padding: 15px;
+    padding: 12px;
+    font-size: 12pt;
 }
 
 .row {
@@ -70,4 +71,8 @@ body {
 #renderbtn {
     display: flex;
     justify-items: end;
+}
+
+.btn:hover {
+    box-shadow: 5px 5px 10px #AAAAAA;
 }

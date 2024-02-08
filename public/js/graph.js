@@ -1,5 +1,8 @@
 /*jslint browser:true */
 
+var trace1;
+var colorscale = "Bluered";
+
 function unpack(points, key) {
     return points.map(function (pt) { return pt[key]; });
 }
@@ -72,7 +75,7 @@ function printFormula() {
         formula.innerHTML = "C(Z,3)";
         formula2.innerHTML = "N/A";
     } else if (zRange > xRange && xRange > yRange) {
-        formula.innerHTML = "C(Y,3) + C(Y,2) * (Z-Y)"; 
+        formula.innerHTML = "C(Y,3) + C(Y,2) * (Z-Y)";
         formula2.innerHTML = "C(Z,3) - C((Z-Y), 3) - C((Z-Y), 2) * Y";
     } else if (zRange > yRange && yRange > xRange) {
         formula.innerHTML = "C(X,3) + C(X,2) * (Z-X) + C((Y-X), 2) * X + (Y-X) * (Z-Y) * X";
@@ -106,7 +109,7 @@ function render() {
     }
 
     for (i = 0; i < fullRange; i++) {
-        if (i >= yRange && i < xRange) { 
+        if (i >= yRange && i < xRange) {
             // addPoint(1, i, 0, 0); 
         }
         if (i < xRange) {
@@ -116,29 +119,28 @@ function render() {
             // if (j >= zRange && j < yRange) { 
             //     addPoint(1, i, j, 0); 
             // }
-            if (j < yRange) {
+            if (i < xRange && j < yRange) {
                 yCounter++;
             }
             for (k = j + 1; k < fullRange; k++) {
-                if (k >= zRange || j >= yRange || i >= xRange) {
-                    addPoint(2, i, j, k);
-                } else {
+                if (i < xRange && j < yRange && k < zRange) {
                     addPoint(1, i, j, k);
                     zCounter++;
+                } else {
+                    addPoint(2, i, j, k);
                 }
             }
         }
-
     }
 
-    var trace1 = {
+    trace1 = {
         x: unpack(pointsOne, 'x1'), y: unpack(pointsOne, 'y1'), z: unpack(pointsOne, 'z1'),
         mode: 'markers',
         name: 'Toggle Loop',
         showlegend: true,
         marker: {
             color: unpack(pointsOne, 'z1'),
-            colorscale: 'Bluered',
+            colorscale: colorscale,
             size: 4,
             symbol: 'square',
             opacity: 1
@@ -162,17 +164,37 @@ function render() {
 
     var data = [trace1, trace2];
     var layout = {
-        margin: {
-            l: 0,
-            r: 0,
-            b: 0,
-            t: 0
+        scene: {
+            camera: {
+                eye: {x: -1.5, y: 1.5, z: .1}
+            }}, 
+        margin: {l: 0, r: 0, b: 0,  t: 0
         },
-        legend: {
-            x: 0.8,
-            y: 0.9
+        legend: {x: 0.8, y: 0.9
         },
         autosize: true
     };
+    console.log(layout.scene.camera.z);
     Plotly.react("myDiv", data, layout).then(printFormula());
+}
+
+function changeColour(id) {
+    switch (id) {
+        case 'btnradio1':
+            colorscale = "Bluered";
+            break;
+        case 'btnradio2':
+            colorscale = "YlOrRd";
+            break;
+        case 'btnradio3':
+            colorscale = "YlGnBu";
+            break;
+        case 'btnradio4':
+            colorscale = "Jet";
+            break;
+        case 'btnradio5':
+            colorscale = "Greens";
+            break;
+    }
+    render();
 }

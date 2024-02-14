@@ -126,7 +126,7 @@ function render() {
                 if (i < xRange && j < yRange && k < zRange) {
                     addPoint(1, i, j, k);
                     zCounter++;
-                } else {
+                } else if (k < zRange) {
                     addPoint(2, i, j, k);
                 }
             }
